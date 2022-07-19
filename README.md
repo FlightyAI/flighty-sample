@@ -21,6 +21,10 @@ Then generate the Python SDK:
 ```
 swagger-codegen generate -i http://localhost/api/v1/openapi.json -l python -o generated-python
 
+# or if running control plane in debugger
+swagger-codegen generate -i http://127.0.0.1:8002/openapi.json -l python -o generated-python
+
+
 ```
 
 and install the Python SDK:
@@ -31,19 +35,24 @@ python3 setup.py install
 cd ..
 ```
 
-Then open a Python REPL and upload an artifact:
+## Run the notebook.
+
+Download the breast cancer dataset:
+```
+curl https://raw.githubusercontent.com/jbrownlee/Datasets/master/breast-cancer.csv \
+     --output breast_cancer.csv           
+```
+
+### Testing code locally
 
 ```
-import swagger_client
-from swagger_client.rest import ApiException
-from pprint import pprint
-
-# create an instance of the API class
-api_instance = swagger_client.DefaultApi(swagger_client.ApiClient(configuration))
-file = 'README.md' # str | 
-name = 'name_example' # str | 
-version = 56 # int | 
-type = swagger_client.ArtifactTypeEnum().MODEL
-
-api_instance.create_artifact_artifacts_create_post('README.md', name, version, type)
+cd docker_build
+docker build . -t gvashishtha/flighty:flighty-demo
+cd ..
+docker run -p 8001:80 -v /Users/gkv/Startup/flighty-sample/code_sample:/code/customer_code \
+-v /Users/gkv/Startup/flighty-sample/model_dir:/code/flighty-files/xgboost/0 \
+  gvashishtha/flighty:flighty-demo
 ```
+
+Then push
+`docker push gvashishtha/flighty:flighty-demo`

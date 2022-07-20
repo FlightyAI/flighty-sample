@@ -45,10 +45,15 @@ curl https://raw.githubusercontent.com/jbrownlee/Datasets/master/breast-cancer.c
 
 ### Testing code locally
 
+First build the image:
 ```
 cd docker_build
 docker build . -t gvashishtha/flighty:flighty-demo
 cd ..
+```
+
+Then actually run it:
+```
 docker run -p 8001:80 -v /Users/gkv/Startup/flighty-sample/code_sample:/code/customer_code \
 -v /Users/gkv/Startup/flighty-sample/model_dir:/code/flighty-files/xgboost/0 \
   gvashishtha/flighty:flighty-demo

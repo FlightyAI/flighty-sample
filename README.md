@@ -59,5 +59,7 @@ docker run -p 8001:80 -v /Users/gkv/Startup/flighty-sample/code_sample:/code/cus
   gvashishtha/flighty:flighty-demo
 ```
 
+Then open up a web browser: http://127.0.0.1:8001/docs
+
 Then push
 `docker push gvashishtha/flighty:flighty-demo`
